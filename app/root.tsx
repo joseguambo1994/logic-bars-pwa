@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import stylesheet from "~/tailwind.css?url";
+import { BottomNavbar } from "./BottomNavigationBar";
 
 export let links: LinksFunction = () => {
   return [{ rel: "manifest", href: "/manifest.json" },
@@ -27,6 +28,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <BottomNavbar />
       </body>
     </html>
   );
