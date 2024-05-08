@@ -6,9 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import stylesheet from "~/tailwind.css?url";
 
 export let links: LinksFunction = () => {
-  return [{ rel: "manifest", href: "/manifest.json" }];
+  return [{ rel: "manifest", href: "/manifest.json" },
+  { rel: "stylesheet", href: stylesheet }
+  ];
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
