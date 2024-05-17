@@ -8,6 +8,7 @@ import {
 } from "@remix-run/react";
 import stylesheet from "~/tailwind.css?url";
 import { BottomNavbar } from "./BottomNavigationBar";
+import TopNavigationBar from "./TopNavigationBar";
 
 export let links: LinksFunction = () => {
   return [{ rel: "manifest", href: "/manifest.json" },
@@ -25,9 +26,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className="pt-16 pb-16">
+          {children}
+        </div>
         <ScrollRestoration />
         <Scripts />
+        <TopNavigationBar />
         <BottomNavbar />
       </body>
     </html>
