@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import Chart from "~/components/Chart";
+
 type Level = 'beginner' | 'intermediate' | 'advanced';
 type Category = 'statics' | 'dynamics';
 type Skill = {
@@ -97,19 +100,19 @@ const combos = [
     {
         id: '2',
         name: 'Double swing 360 > Geinger',
-        skills: ['1','1','2'],
+        skills: ['1', '1', '2'],
         complexity: 2,
     },
     {
         id: '3',
         name: 'Swing 720 > Geinger > Swing 540',
-        skills: ['7','2','3'],
+        skills: ['7', '2', '3'],
         complexity: 4,
     },
     {
         id: '4',
         name: 'Front Lever > Back Lever > Swing 360 > Geinger',
-        skills: ['8','10','1','2'],
+        skills: ['8', '10', '1', '2'],
         complexity: 2,
     },
 
@@ -170,23 +173,57 @@ const athletes = [
     },
 ]
 
+
+const getRandomScore = () => Math.floor(Math.random() * 10) + 1;
+
+
 export default function Statistics() {
+    const [data, setData] = useState([]);
     const randomIndex = Math.floor(Math.random() * athletes.length);
     const randomAthlete = athletes[randomIndex];
     const userSkills = randomAthlete.skills;
     const userCombos = randomAthlete.combos;
-    return <div className="bg-secondary">
+
+    useEffect(() => {
+        const score =  [
+            {
+                "category": "Statics",
+                "score": getRandomScore(),
+            },
+            {
+                "category": "Dynamics",
+                "score": getRandomScore(),
+            },
+            {
+                "category": "Combos",
+                "score": getRandomScore(),
+            },
+            {
+                "category": "Strenght",
+                "score": getRandomScore(),
+            },
+            {
+                "category": "Endurance",
+                "score": getRandomScore(),
+            },
+        ];
+        setData(score);
+    }, []);
+    return <div>
         <h1>Statistics Screen</h1>
+
+        <Chart data={data} />
+
         {
             userSkills.map((skillId) => {
                 const skill = skills?.find((s) => s.id === skillId);
-                if (skill){
+                if (skill) {
                     return <div key={skill.id}>
-                    <h2>{skill.name}</h2>
-                    <p>Level: {skill.level}</p>
-                    <p>Points: {skill.points}</p>
-                    <p>Category: {skill.category}</p>
-                </div>;
+                        <h2>{skill.name}</h2>
+                        <p>Level: {skill.level}</p>
+                        <p>Points: {skill.points}</p>
+                        <p>Category: {skill.category}</p>
+                    </div>;
                 };
             })
         }
